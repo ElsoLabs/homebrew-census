@@ -7,7 +7,8 @@ cask "census" do
   desc "A full count of what is on your Mac"
   homepage "https://elsolabs.com/census"
 
-  depends_on macos: ">= :sonoma"
+  # `:sonoma` already means "sonoma or newer".
+  depends_on macos: :sonoma
 
   app "Elso Census.app"
 
