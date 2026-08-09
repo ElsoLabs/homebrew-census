@@ -2,8 +2,12 @@
 
 ```
 brew tap elsolabs/census
+brew trust --cask elsolabs/census/census
 brew install --cask census
 ```
+
+Homebrew asks you to trust taps outside its own repositories. Without the
+middle line the install stops with an "untrusted tap" error.
 
 ## Elso Census
 
