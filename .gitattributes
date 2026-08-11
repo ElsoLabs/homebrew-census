@@ -1,0 +1,7 @@
+# A Homebrew tap is one cask definition. It is not a Ruby project.
+#
+# GitHub's language detection reads the .rb and labels the whole repository
+# Ruby, which is the most prominent thing on the page after the name — so the
+# first fact a visitor learns about a Mac app's install instructions is a
+# language they will never touch and that says nothing about what this is.
+Casks/*.rb linguist-detectable=false
