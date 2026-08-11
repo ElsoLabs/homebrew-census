@@ -1,0 +1,46 @@
+# Refuses a commit authored by a person rather than by Elso Labs.
+#
+# This runs on GitHub, which is the point. Every other guard lives on somebody's
+# Mac: a repo-local git config that a fresh clone does not inherit, a script
+# that only helps if it is the thing that pushed, a hook that is not installed
+# on a machine nobody has set up yet. The tap is cloned to a temporary directory
+# during a release, so "a fresh clone with default config" is the normal case
+# rather than the unusual one.
+#
+# A check that runs here cannot be skipped by using a different Mac, a different
+# session, or a different tool.
+name: Authorship
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Enough history to see every commit being pushed, not just the tip.
+          fetch-depth: 0
+
+      - name: Every commit must be authored by Elso Labs
+        run: |
+          expected="engineering@elsolabs.com"
+          # Author and committer both: a rebase or a cherry-pick sets them
+          # separately, and either one is public on a public repository.
+          wrong="$(git log --format='%ae%n%ce' | sort -u | grep -v "^$expected$" || true)"
+          if [ -n "$wrong" ]; then
+            echo "::error::This repository is Elso Labs'. These addresses are not:"
+            printf '%s\n' "$wrong" | sed 's/^/  /'
+            echo ""
+            echo "A commit author is public on a public repository. Fix with:"
+            echo "  git -C . config user.name  'Elso Labs'"
+            echo "  git -C . config user.email '$expected'"
+            echo ""
+            echo "Releases set this automatically — see Scripts/release.sh in the"
+            echo "Census repository. A commit that reaches here without it was"
+            echo "made by hand."
+            exit 1
+          fi
+          echo "All commits authored by Elso Labs."
