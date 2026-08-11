@@ -1,13 +1,14 @@
 cask "census" do
-  version "0.7.0"
-  sha256 "af42b771a4f824a8c658c28d52818af2534479d57c2ab68aa2ab69266a8b9417"
+  version "0.7.1"
+  sha256 "96761c547646f205c0ff80974d4897880480ecfd3c52de7e26bc5eca37f1c1a4"
 
   url "https://elsolabs.com/census/downloads/Elso%20Census-#{version}.dmg"
   name "Elso Census"
   desc "A full count of what is on your Mac"
   homepage "https://elsolabs.com/census"
 
-  # `:sonoma` already means "sonoma or newer".
+  #  already means "sonoma or newer". The string form ">= :sonoma"
+  # is deprecated and makes brew print a warning naming this tap on every tap.
   depends_on macos: :sonoma
 
   app "Elso Census.app"
