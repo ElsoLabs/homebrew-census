@@ -1,6 +1,6 @@
 cask "census" do
-  version "0.7.1"
-  sha256 "96761c547646f205c0ff80974d4897880480ecfd3c52de7e26bc5eca37f1c1a4"
+  version "0.8.0"
+  sha256 "83515c2cf130ae39f7a927fe67f766f234ac493e1293de1f60ccaf891b2e5651"
 
   url "https://elsolabs.com/census/downloads/Elso%20Census-#{version}.dmg"
   name "Elso Census"
