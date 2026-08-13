@@ -13,6 +13,13 @@ cask "census" do
 
   app "Elso Census.app"
 
+  # So `census --scan` works in a terminal.
+  #
+  # The executable inside the bundle is "Elso Census" — a name with a space in
+  # it, three folders deep. Fine for macOS to launch, hopeless to print on a
+  # web page, and a documented command nobody can type is worse than none.
+  binary "#{appdir}/Elso Census.app/Contents/MacOS/Elso Census", target: "census"
+
   # Everything Census writes. Listed so an uninstall leaves nothing behind.
   zap trash: [
     "~/Library/Preferences/com.elsolabs.census.plist",
